@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Napoleonic Warship</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .ship-diagram {
+      position: relative;
+      display: inline-block;
+      max-width: 90%;
+      height: auto;
+    }
+    .hotspot {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 0, 0, 0.5);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+    }
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 1px solid #333;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <h1>Explore the Napoleonic Warship</h1>
+  <div class="ship-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/HMS_Victory_profile.svg/1200px-HMS_Victory_profile.svg.png" alt="Napoleonic Warship" class="ship-diagram" id="ship">
+    <div class="hotspot" style="top: 30%; left: 40%;" data-info="Main Mast: The tallest mast of the ship, carrying the largest sails."></div>
+    <div class="hotspot" style="top: 50%; left: 60%;" data-info="Gun Deck: Where the main battery of cannons was located."></div>
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+
+  <script>
+    const hotspots = document.querySelectorAll('.hotspot');
+    const tooltip = document.getElementById('tooltip');
+
+    hotspots.forEach(hotspot => {
+      hotspot.addEventListener('click', (e) => {
+        const info = hotspot.getAttribute('data-info');
+        tooltip.textContent = info;
+        const rect = hotspot.getBoundingClientRect();
+        tooltip.style.top = (rect.top + window.scrollY + 40) + 'px';
+        tooltip.style.left = (rect.left + window.scrollX) + 'px';
+        tooltip.style.display = 'block';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('hotspot')) {
+        tooltip.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
