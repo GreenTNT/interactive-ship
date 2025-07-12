@@ -2,47 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Napoleonic Warship</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore the Napoleonic Warship</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
       text-align: center;
     }
-    .ship-diagram {
+
+    h1 {
+      margin: 20px;
+    }
+
+    .ship-container {
       position: relative;
       display: inline-block;
-      max-width: 90%;
+      max-width: 100%;
+    }
+
+    .ship-diagram {
+      max-width: 95%;
       height: auto;
     }
+
     .hotspot {
       position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 0, 0, 0.5);
-      cursor: pointer;
       width: 30px;
       height: 30px;
+      background-color: rgba(255, 0, 0, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
+
     .tooltip {
       position: absolute;
-      background: white;
-      border: 1px solid #333;
+      background: #fff;
+      color: #000;
       padding: 10px;
       border-radius: 5px;
+      border: 1px solid #444;
       display: none;
+      max-width: 200px;
       z-index: 10;
     }
   </style>
 </head>
 <body>
+
   <h1>Explore the Napoleonic Warship</h1>
+
   <div class="ship-container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/HMS_Victory_profile.svg/1200px-HMS_Victory_profile.svg.png" alt="Napoleonic Warship" class="ship-diagram" id="ship">
-    <div class="hotspot" style="top: 30%; left: 40%;" data-info="Main Mast: The tallest mast of the ship, carrying the largest sails."></div>
-    <div class="hotspot" style="top: 50%; left: 60%;" data-info="Gun Deck: Where the main battery of cannons was located."></div>
+    <img src="ship.png" alt="Ship Blueprint" class="ship-diagram" id="ship"/>
+
+    <!-- Sample Hotspots -->
+    <div class="hotspot" style="top: 65%; left: 40%;" data-info="Main Gun Deck: Cannons line both sides for broadside attacks."></div>
+    <div class="hotspot" style="top: 48%; left: 60%;" data-info="Captain’s Cabin: Located at the stern, richly appointed for command and navigation."></div>
+    <div class="hotspot" style="top: 30%; left: 45%;" data-info="Foremast Area: One of the main vertical masts used to carry square sails."></div>
+
     <div class="tooltip" id="tooltip"></div>
   </div>
 
@@ -54,9 +75,10 @@
       hotspot.addEventListener('click', (e) => {
         const info = hotspot.getAttribute('data-info');
         tooltip.textContent = info;
+
         const rect = hotspot.getBoundingClientRect();
-        tooltip.style.top = (rect.top + window.scrollY + 40) + 'px';
-        tooltip.style.left = (rect.left + window.scrollX) + 'px';
+        tooltip.style.top = (rect.top + window.scrollY + 35) + 'px';
+        tooltip.style.left = (rect.left + window.scrollX + 20) + 'px';
         tooltip.style.display = 'block';
       });
     });
@@ -67,5 +89,7 @@
       }
     });
   </script>
+
 </body>
 </html>
+
